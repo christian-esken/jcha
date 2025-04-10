@@ -30,6 +30,8 @@ fi
 
 # -- JavaFX is not in the standard runtime path for Java 7 => add it  
 JCHA_CP=${JCHA_CP}:${JAVA_HOME}/jre/lib/jfxrt.jar
+# Preparing to make jcha-gui work again on recent JDK versions:
+#export PATH_TO_FX=path/to/javafx-sdk-21/lib
 
 java -cp ${JCHA_CP} ${JCHA_OPTS} com.trivago.jcha.apps.App ${1+"$@"}
 

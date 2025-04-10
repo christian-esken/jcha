@@ -15,31 +15,50 @@ Both tools support class filtering, by either giving a limit or a class list.
 
 
 ## Building
-Build requires Maven and Java 8. All other dependencies are pulled in by Maven.
+Build requires Maven and Java 21. All other dependencies are pulled in by Maven.
+
+Note: Builds for lower Java version 17 and 11 are also possible by editing compiler configuration
+and JavaFX version in pom.xml.
+
 ```
   mvn package assembly:single
 ```
 
 
 ## Running
-You can run jcha directly from the build directory. It requires Java 8.
+You can run jcha directly from the build directory. It requires Java 21.
 
 ### Capturing histograms
 ```
 # Capture a single histogram, directly with jcmd from JDK
 jcmd pid GC.class_histogram > classhistogram01.jch
-# Capture endlessly from a JMX enabled JVM (Java 8 server)
+# Capture endlessly from a JMX enabled JVM
 jcha --jmx host:port
 # Capture 12 histograms, delay between is 5 minutes (300 seconds)
 jcha-capture 12 300 pid filnamePrefix
 ```
 
-### Displaying histograms on command line or GUI
+### Displaying histograms on command line
 ```
 # Start jcha with 2 *.jch files in the directory
 jcha classhistogram01.jch classhistogram02.jch
-# Start GUI with all *.jch files in the directory
-jcha-gui *.jch
+```
+
+### Displaying histograms on the GUI
+
+Start GUI with all *.jch files in the directory:
+```
+# Start:
+# Note: Note: The shell wrapper `jcha-gui` is not working with recent JDK versions (11+).
+jacha-gui *.jch
+```
+
+The GUI is not functional for recent Java versions, due to the changes in how delivering JavaFX.
+As a workaround you can start the GUI via the JavaFX maven plugin. The filenames must be passed as
+JavaFX "commandlineArgs" parameters, as described in https://github.com/openjfx/javafx-maven-plugin : 
+
+```
+mvn org.openjfx:javafx-maven-plugin:0.0.8:run
 ```
 
 ### Other options
@@ -51,7 +70,6 @@ Shortcut, using a shell alias:
 ```
  path=`pwd`
  alias jcha=$path/jcha
- alias jcha-gui=$path/jcha-gui
 ```
 
 ## Version history
