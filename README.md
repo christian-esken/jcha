@@ -48,12 +48,11 @@ jcha classhistogram01.jch classhistogram02.jch
 
 Start GUI with all *.jch files in the directory:
 ```
-# Start:
 # Note: Note: The shell wrapper `jcha-gui` is not working with recent JDK versions (11+).
 jacha-gui *.jch
 ```
 
-The GUI is not functional for recent Java versions, due to the changes in how delivering JavaFX.
+The GUI is not functional for recent Java versions, due to the changes in how JavaFX delivers its runtime components.
 As a workaround you can start the GUI via the JavaFX maven plugin. The filenames must be passed as
 JavaFX "commandlineArgs" parameters, as described in https://github.com/openjfx/javafx-maven-plugin : 
 
